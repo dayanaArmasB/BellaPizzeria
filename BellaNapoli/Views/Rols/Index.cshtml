@@ -1,0 +1,61 @@
+﻿@model IEnumerable<BellaNapoli.Models.Rol>
+
+@{
+    ViewData["Title"] = "Lista de roles";
+}
+
+<style>
+    html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        display: flex;
+        flex-direction: column;
+        border-left: 20px solid green;
+        border-right: 20px solid green;
+    }
+
+    .container {
+        flex: 1;
+        padding: 20px;
+    }
+</style>
+
+<div class="container">
+    <h1 class="mt-4">Roles</h1>
+
+    <p>
+        <a asp-action="Create" class="btn btn-primary">Crear nuevo rol</a>
+    </p>
+
+    <div class="table-responsive">
+        <table class="table table-striped table-bordered">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Descripción</th>
+                    <th>Fecha de Registro</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@Html.DisplayFor(modelItem => item.Descripcion)</td>
+                        <td>@Html.DisplayFor(modelItem => item.FechaRegistro)</td>
+                        <td>
+                            <div class="btn-group" role="group">
+                                <a asp-action="Edit" asp-route-id="@item.IdRol" class="btn btn-primary">Editar</a>
+                                <a asp-action="Details" asp-route-id="@item.IdRol" class="btn btn-warning">Detalles</a>
+                                <a asp-action="Delete" asp-route-id="@item.IdRol" class="btn btn-danger">Eliminar</a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

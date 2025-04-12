@@ -1,0 +1,85 @@
+﻿@model IEnumerable<BellaNapoli.Models.Proveedor>
+
+@{
+    ViewData["Title"] = "Lista de Proveedores";
+}
+
+<style>
+    html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        display: flex;
+        flex-direction: column;
+        border-left: 20px solid green;
+        border-right: 20px solid green;
+    }
+
+    .container {
+        flex: 1;
+        padding: 20px;
+    }
+
+    .table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+
+        .table th,
+        .table td {
+            border: 1px solid #dee2e6;
+            padding: 8px;
+        }
+
+        .table thead th {
+            background-color: #52C5A0;
+            color: white;
+            border-color: #52C5A0;
+        }
+</style>
+
+<div class="container">
+    <h1 class="mt-4">Proveedores</h1>
+
+    <p>
+        <a asp-action="Create" class="btn btn-primary">Crear nuevo proveedor</a>
+    </p>
+
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>@Html.DisplayNameFor(model => model.Documento)</th>
+                    <th>@Html.DisplayNameFor(model => model.RazonSocial)</th>
+                    <th>@Html.DisplayNameFor(model => model.Correo)</th>
+                    <th>@Html.DisplayNameFor(model => model.Telefono)</th>
+                    <th>@Html.DisplayNameFor(model => model.Estado)</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@Html.DisplayFor(modelItem => item.Documento)</td>
+                        <td>@Html.DisplayFor(modelItem => item.RazonSocial)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Correo)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Telefono)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Estado)</td>
+                        <td>
+                            <div class="btn-group" role="group">
+                                <a asp-action="Edit" asp-route-id="@item.IdProveedor" class="btn btn-primary">Editar</a>
+                                <a asp-action="Details" asp-route-id="@item.IdProveedor" class="btn btn-warning">Detalles</a>
+                                <a asp-action="Delete" asp-route-id="@item.IdProveedor" class="btn btn-danger">Eliminar</a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

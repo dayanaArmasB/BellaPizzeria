@@ -1,0 +1,81 @@
+﻿@model IEnumerable<BellaNapoli.Models.Compra>
+
+@{
+    ViewData["Title"] = "Lista de Compras";
+}
+<style>
+    html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        display: flex;
+        flex-direction: column;
+        border-left: 20px solid green;
+        border-right: 20px solid green;
+    }
+
+    .container {
+        flex: 1;
+        padding: 20px;
+    }
+</style>
+
+<h1>Compras</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">Crear Compra</a>
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.IdUsuario)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IdProveedor)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TipoDocumento)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NumeroDocumento)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MontoTotal)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IdUsuario)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IdProveedor)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TipoDocumento)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NumeroDocumento)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MontoTotal)
+                </td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@item.IdCompra" class="btn btn-info">Detalles</a> |
+                    <a asp-action="Edit" asp-route-id="@item.IdCompra" class="btn btn-warning">Editar</a> |
+                    <a asp-action="Delete" asp-route-id="@item.IdCompra" class="btn btn-danger">Eliminar</a>
+
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

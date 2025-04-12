@@ -1,0 +1,87 @@
+﻿@model IEnumerable<BellaNapoli.Models.Usuario>
+
+@{
+    ViewData["Title"] = "Lista de Usuarios";
+}
+<style>
+    html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        display: flex;
+        flex-direction: column;
+        border-left: 20px solid green;
+        border-right: 20px solid green;
+    }
+
+    .container {
+        flex: 1;
+        padding: 20px;
+    }
+</style>
+
+<h1>Usuarios</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">Crear Usuario</a>
+</p>
+<form asp-action="Index" method="get">
+    <p>
+        <input type="text" name="searchString" value="@ViewData["CurrentFilter"]" placeholder="Buscar por nombre" class="form-control" />
+        <input type="submit" value="Buscar" class="btn btn-info" />
+    </p>
+</form>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Documento)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NombreCompleto)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Correo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IdRol)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Estado)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Documento)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NombreCompleto)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Correo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IdRol) 
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Estado)
+                </td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@item.IdUsuario" class="btn btn-primary">Detalles</a> |
+                    <a asp-action="Edit" asp-route-id="@item.IdUsuario" class="btn btn-warning">Editar</a> |
+                    <a asp-action="Delete" asp-route-id="@item.IdUsuario" class="btn btn-danger">Eliminar</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+

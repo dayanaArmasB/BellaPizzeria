@@ -1,0 +1,93 @@
+﻿@model BellaNapoli.Models.Ventum
+
+@{
+    ViewData["Title"] = "Edit";
+}
+<style>
+    html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        display: flex;
+        flex-direction: column;
+        border-left: 20px solid green;
+        border-right: 20px solid green;
+    }
+
+    .container {
+        flex: 1;
+        padding: 20px;
+    }
+</style>
+
+<h1>Edit</h1>
+
+<h4>Ventum</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="IdVenta" />
+            <div class="form-group">
+                <label asp-for="IdUsuario" class="control-label"></label>
+                <select asp-for="IdUsuario" class="form-control" asp-items="ViewBag.IdUsuario"></select>
+                <span asp-validation-for="IdUsuario" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TipoDocumento" class="control-label"></label>
+                <input asp-for="TipoDocumento" class="form-control" />
+                <span asp-validation-for="TipoDocumento" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="NumeroDocumento" class="control-label"></label>
+                <input asp-for="NumeroDocumento" class="form-control" />
+                <span asp-validation-for="NumeroDocumento" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DocumentoCliente" class="control-label"></label>
+                <input asp-for="DocumentoCliente" class="form-control" />
+                <span asp-validation-for="DocumentoCliente" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="NombreCliente" class="control-label"></label>
+                <input asp-for="NombreCliente" class="form-control" />
+                <span asp-validation-for="NombreCliente" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MontoPago" class="control-label"></label>
+                <input asp-for="MontoPago" class="form-control" />
+                <span asp-validation-for="MontoPago" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MontoCambio" class="control-label"></label>
+                <input asp-for="MontoCambio" class="form-control" />
+                <span asp-validation-for="MontoCambio" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MontoTotal" class="control-label"></label>
+                <input asp-for="MontoTotal" class="form-control" />
+                <span asp-validation-for="MontoTotal" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FechaRegistro" class="control-label"></label>
+                <input asp-for="FechaRegistro" class="form-control" />
+                <span asp-validation-for="FechaRegistro" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

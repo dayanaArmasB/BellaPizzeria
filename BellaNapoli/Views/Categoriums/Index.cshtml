@@ -1,0 +1,66 @@
+﻿@model IEnumerable<BellaNapoli.Models.Categorium>
+
+@{
+    ViewData["Title"] = "Lista categorías";
+}
+<style>
+    html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        display: flex;
+        flex-direction: column;
+        border-left: 20px solid green;
+        border-right: 20px solid green;
+    }
+
+    .container {
+        flex: 1;
+        padding: 20px;
+    }
+</style>
+
+<h1>Categorías</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">Crear nueva categoría</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Descripcion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Estado)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FechaRegistro)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Descripcion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Estado)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FechaRegistro)
+            </td>
+            <td>
+                    <a asp-action="Edit" asp-route-id="@item.IdCategoria" class="btn btn-primary">Editar</a> |
+                    <a asp-action="Details" asp-route-id="@item.IdCategoria" class="btn btn-warning">Detalles</a> |
+                    <a asp-action="Delete" asp-route-id="@item.IdCategoria" class="btn btn-danger">Eliminar</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
