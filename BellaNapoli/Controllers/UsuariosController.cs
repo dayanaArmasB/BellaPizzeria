@@ -6,9 +6,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using BellaNapoli.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace BellaNapoli.Controllers
 {
+    [Authorize]
     public class UsuariosController : Controller
     {
         private readonly TestDbventa1Context _context;

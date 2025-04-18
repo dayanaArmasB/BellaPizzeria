@@ -1,4 +1,5 @@
 using BellaNapoli.Models;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -8,6 +9,13 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.AddDbContext<TestDbventa1Context>(options =>
         options.UseSqlServer(builder.Configuration.GetConnectionString("conexion")));
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, options =>
+    {
+        options.LoginPath = "/Login";
+        options.AccessDeniedPath = "/Login/AccessDenied";
+        options.ExpireTimeSpan = TimeSpan.FromMinutes(60);
+    });
 
 var app = builder.Build();
 
@@ -28,6 +36,6 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{controller=Login}/{action=Index}/{id?}");
 
 app.Run();

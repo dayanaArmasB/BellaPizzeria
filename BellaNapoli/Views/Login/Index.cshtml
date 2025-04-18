@@ -1,0 +1,27 @@
+﻿@{
+    Layout = null; 
+    ViewData["Title"] = "Login";
+}
+<h2>Login</h2>
+
+<form asp-action="Index" method="post">
+    <div>
+        <label>Correo</label>
+        <input type="email" name="correo" required />
+    </div>
+    <div>
+        <label>Clave</label>
+        <input type="password" name="clave" required />
+    </div>
+    <button type="submit">Ingresar</button>
+</form>
+
+@if (!ViewData.ModelState.IsValid)
+{
+    <div style="color:red;">
+        @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+        {
+            <p>@error.ErrorMessage</p>
+        }
+    </div>
+}

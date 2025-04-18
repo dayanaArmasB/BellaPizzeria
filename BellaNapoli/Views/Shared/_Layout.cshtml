@@ -1,4 +1,5 @@
 ﻿<!DOCTYPE html>
+
 <style>
     /* Resto de tus estilos aquí */
 
@@ -37,18 +38,22 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Rols" asp-action="Index">Rol</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Permisoes" asp-action="Index">Permiso</a>
-                        </li>
+                        @if (User.IsInRole("ADMINISTRADOR"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Rols" asp-action="Index">Rol</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Permisoes" asp-action="Index">Permiso</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Usuarios" asp-action="Index">Usuarios</a>
+                            </li>
+                        }
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Proveedors" asp-action="Index">Proveedores</a>
                         </li>                  
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Usuarios" asp-action="Index">Usuarios</a>
-                        </li>
+
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Categoriums" asp-action="Index">Categorías</a>
                         </li>
@@ -59,6 +64,9 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Compras" asp-action="Index">Compras</a>
                         </li>                     
                     </ul>
+                    <form asp-controller="Login" asp-action="Logout" method="post" class="d-flex">
+                        <button type="submit" class="btn btn-outline-light">Cerrar sesión</button>
+                    </form>
                 </div>
             </div>
         </nav>
