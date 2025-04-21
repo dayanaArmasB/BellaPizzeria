@@ -4,82 +4,130 @@
     ViewData["Title"] = "Lista de Proveedores";
 }
 
-<style>
-    html, body {
-        height: 100%;
-        margin: 0;
-        padding: 0;
-    }
-
-    body {
-        display: flex;
-        flex-direction: column;
-        border-left: 20px solid green;
-        border-right: 20px solid green;
-    }
-
-    .container {
-        flex: 1;
-        padding: 20px;
-    }
-
-    .table {
-        width: 100%;
-        border-collapse: collapse;
-        margin-top: 20px;
-    }
-
-        .table th,
-        .table td {
-            border: 1px solid #dee2e6;
-            padding: 8px;
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"]</title>
+    <link href="https://fonts.googleapis.com/css2?family=Segoe+UI&display=swap" rel="stylesheet">
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+            overflow-x: hidden; /* Previene scroll horizontal */
         }
 
-        .table thead th {
-            background-color: #52C5A0;
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .container-proveedores {
+            flex: 1;
+            padding: 40px 20px;
+            max-width: auto;
+            margin: 0 auto;
+            background-color: white;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            margin-bottom: 5rem;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #28a745;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .btn + .btn {
+            margin-left: 5px;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 5px;
+        }
+
+        .table-responsive {
+            margin-top: 30px;
+        }
+
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .table th, .table td {
+            padding: 12px;
+            text-align: center;
+            border: 1px solid #ddd;
+            vertical-align: middle;
+        }
+
+        .table th {
+            background-color: #28a745;
             color: white;
-            border-color: #52C5A0;
+            font-weight: bold;
         }
-</style>
 
-<div class="container">
-    <h1 class="mt-4">Proveedores</h1>
+        .table-striped tbody tr:nth-child(odd) {
+            background-color: #f9f9f9;
+        }
+    </style>
+</head>
+<body>
 
-    <p>
-        <a asp-action="Create" class="btn btn-primary">Crear nuevo proveedor</a>
-    </p>
+    <div class="container-proveedores">
+        <h1>Lista de Proveedores</h1>
 
-    <div class="table-responsive">
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th>@Html.DisplayNameFor(model => model.Documento)</th>
-                    <th>@Html.DisplayNameFor(model => model.RazonSocial)</th>
-                    <th>@Html.DisplayNameFor(model => model.Correo)</th>
-                    <th>@Html.DisplayNameFor(model => model.Telefono)</th>
-                    <th>@Html.DisplayNameFor(model => model.Estado)</th>
-                    <th>Acciones</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Model)
-                {
+        <p class="text-center">
+            <a asp-action="Create" class="btn btn-success mb-3">➕ Crear nuevo proveedor</a>
+        </p>
+
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
                     <tr>
-                        <td>@Html.DisplayFor(modelItem => item.Documento)</td>
-                        <td>@Html.DisplayFor(modelItem => item.RazonSocial)</td>
-                        <td>@Html.DisplayFor(modelItem => item.Correo)</td>
-                        <td>@Html.DisplayFor(modelItem => item.Telefono)</td>
-                        <td>@Html.DisplayFor(modelItem => item.Estado)</td>
-                        <td>
-                            <div class="btn-group" role="group">
-                                <a asp-action="Edit" asp-route-id="@item.IdProveedor" class="btn btn-primary">Editar</a>
-                                <a asp-action="Details" asp-route-id="@item.IdProveedor" class="btn btn-warning">Detalles</a>
-                                <a asp-action="Delete" asp-route-id="@item.IdProveedor" class="btn btn-danger">Eliminar</a>
-                            </div>
-                        </td>
+                        <th>@Html.DisplayNameFor(model => model.First().Documento)</th>
+                        <th>@Html.DisplayNameFor(model => model.First().RazonSocial)</th>
+                        <th>@Html.DisplayNameFor(model => model.First().Correo)</th>
+                        <th>@Html.DisplayNameFor(model => model.First().Telefono)</th>
+                        <th>@Html.DisplayNameFor(model => model.First().Estado)</th>
+                        <th>Acciones</th>
                     </tr>
-                }
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@Html.DisplayFor(modelItem => item.Documento)</td>
+                            <td>@Html.DisplayFor(modelItem => item.RazonSocial)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Correo)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Telefono)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Estado)</td>
+                            <td>
+                                <div class="btn-group" role="group">
+                                    <a asp-action="Edit" asp-route-id="@item.IdProveedor" class="btn btn-sm btn-primary">Editar</a>
+                                    <a asp-action="Details" asp-route-id="@item.IdProveedor" class="btn btn-sm btn-warning">Detalles</a>
+                                    <a asp-action="Delete" asp-route-id="@item.IdProveedor" class="btn btn-sm btn-danger">Eliminar</a>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
     </div>
-</div>
+
+</body>
+</html>
+

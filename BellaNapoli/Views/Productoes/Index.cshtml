@@ -1,73 +1,158 @@
 ﻿@model IEnumerable<BellaNapoli.Models.Producto>
 
 @{
-    ViewData["Title"] = "Productos";
+    ViewData["Title"] = "Lista de Productos";
 }
-<style>
-    html, body {
-        height: 100%;
-        margin: 0;
-        padding: 0;
-    }
-
-    body {
-        display: flex;
-        flex-direction: column;
-        border-left: 20px solid green;
-        border-right: 20px solid green;
-    }
-
-    .container {
-        flex: 1;
-        padding: 20px;
-    }
-</style>
-
-<h1>Productos</h1>
-
-<p>
-    <a asp-action="Create" class="btn btn-primary">Crear Nuevo</a>
-</p>
-
-<form asp-action="Index" method="get">
-    <p>
-        <input type="text" name="searchString" value="@ViewData["CurrentFilter"]" placeholder="Buscar por nombre" class="form-control" />
-        <input type="submit" value="Buscar" class="btn btn-info" />
-    </p>
-</form>
-
-<table class="table table-striped table-bordered">
-    <thead>
-        <tr>
-            <th>@Html.DisplayNameFor(model => model.Codigo)</th>
-            <th>@Html.DisplayNameFor(model => model.Nombre)</th>
-            <th>@Html.DisplayNameFor(model => model.Descripcion)</th>
-            <th>@Html.DisplayNameFor(model => model.Stock)</th>
-            <th>@Html.DisplayNameFor(model => model.PrecioCompra)</th>
-            <th>@Html.DisplayNameFor(model => model.PrecioVenta)</th>
-            <th>@Html.DisplayNameFor(model => model.Estado)</th>
-            <th>@Html.DisplayNameFor(model => model.FechaRegistro)</th>
-            <th>Acciones</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>@Html.DisplayFor(modelItem => item.Codigo)</td>
-                <td>@Html.DisplayFor(modelItem => item.Nombre)</td>
-                <td>@Html.DisplayFor(modelItem => item.Descripcion)</td>
-                <td>@Html.DisplayFor(modelItem => item.Stock)</td>
-                <td>@Html.DisplayFor(modelItem => item.PrecioCompra)</td>
-                <td>@Html.DisplayFor(modelItem => item.PrecioVenta)</td>
-                <td>@Html.DisplayFor(modelItem => item.Estado)</td>
-                <td>@Html.DisplayFor(modelItem => item.FechaRegistro)</td>
-                <td>
-                    <a asp-action="Details" asp-route-id="@item.IdProducto" class="btn btn-sm btn-primary">Detalles</a>
-                    <a asp-action="Edit" asp-route-id="@item.IdProducto" class="btn btn-sm btn-warning">Editar</a>
-                    <a asp-action="Delete" asp-route-id="@item.IdProducto" class="btn btn-sm btn-danger">Eliminar</a>
-                </td>
-            </tr>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"]</title>
+    <link href="https://fonts.googleapis.com/css2?family=Segoe+UI&display=swap" rel="stylesheet">
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+            overflow-x: hidden; /* Previene scroll horizontal */
         }
-    </tbody>
-</table>
+
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .container-producto {
+            flex: 1;
+            padding: 40px 20px;
+            max-width: auto;
+            margin: 0 auto;
+            background-color: white;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            margin-bottom: 5rem;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #28a745;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 5px;
+        }
+
+        .table-responsive {
+            margin-top: 30px;
+        }
+
+        .table {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;
+        }
+
+            .table th, .table td {
+                padding: 12px;
+                text-align: center;
+                border: 1px solid #ddd;
+                vertical-align: middle;
+            }
+
+            .table th {
+                background-color: #28a745;
+                color: white;
+                font-weight: bold;
+            }
+
+            .table td {
+                background-color: #f9f9f9;
+            }
+
+        .form-inline {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .btn btn-info {
+            color: #28a745;
+        }
+
+
+            .form-inline input[type="text"] {
+                max-width: 300px;
+            }
+
+        .btn + .btn {
+            margin-left: 5px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container-producto">
+        <h1>Lista de Productos</h1>
+
+        <p class="text-center">
+            <a asp-action="Create" class="btn btn-success">➕ Crear Nuevo</a>
+        </p>
+
+        <form asp-action="Index" method="get" class="form-inline">
+            <input type="text" name="searchString" value="@ViewData["CurrentFilter"]" placeholder="🔍 Buscar por nombre" class="form-control" />
+            <input type="submit" value="Buscar" class="btn btn-success" />
+        </form>
+
+        <div class="table-responsive">
+            <table class="table table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.Codigo)</th>
+                        <th>@Html.DisplayNameFor(model => model.Nombre)</th>
+                        <th>@Html.DisplayNameFor(model => model.Descripcion)</th>
+                        <th>@Html.DisplayNameFor(model => model.Stock)</th>
+                        <th>@Html.DisplayNameFor(model => model.PrecioCompra)</th>
+                        <th>@Html.DisplayNameFor(model => model.PrecioVenta)</th>
+                        <th>@Html.DisplayNameFor(model => model.Estado)</th>
+                        <th>@Html.DisplayNameFor(model => model.FechaRegistro)</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@Html.DisplayFor(modelItem => item.Codigo)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Nombre)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Descripcion)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Stock)</td>
+                            <td>@Html.DisplayFor(modelItem => item.PrecioCompra)</td>
+                            <td>@Html.DisplayFor(modelItem => item.PrecioVenta)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Estado)</td>
+                            <td>@Html.DisplayFor(modelItem => item.FechaRegistro)</td>
+                            <td>
+                                <div class="btn-group" role="group">
+                                    <a asp-action="Details" asp-route-id="@item.IdProducto" class="btn btn-sm btn-primary">Detalles</a>
+                                    <a asp-action="Edit" asp-route-id="@item.IdProducto" class="btn btn-sm btn-warning">Editar</a>
+                                    <a asp-action="Delete" asp-route-id="@item.IdProducto" class="btn btn-sm btn-danger">Eliminar</a>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>
+

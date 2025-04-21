@@ -1,81 +1,130 @@
 ﻿@model IEnumerable<BellaNapoli.Models.Compra>
 
-@{
-    ViewData["Title"] = "Lista de Compras";
-}
-<style>
-    html, body {
-        height: 100%;
-        margin: 0;
-        padding: 0;
-    }
-
-    body {
-        display: flex;
-        flex-direction: column;
-        border-left: 20px solid green;
-        border-right: 20px solid green;
-    }
-
-    .container {
-        flex: 1;
-        padding: 20px;
-    }
-</style>
-
-<h1>Compras</h1>
-
-<p>
-    <a asp-action="Create" class="btn btn-primary">Crear Compra</a>
-</p>
-
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.IdUsuario)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IdProveedor)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TipoDocumento)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.NumeroDocumento)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.MontoTotal)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.IdUsuario)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.IdProveedor)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.TipoDocumento)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.NumeroDocumento)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.MontoTotal)
-                </td>
-                <td>
-                    <a asp-action="Details" asp-route-id="@item.IdCompra" class="btn btn-info">Detalles</a> |
-                    <a asp-action="Edit" asp-route-id="@item.IdCompra" class="btn btn-warning">Editar</a> |
-                    <a asp-action="Delete" asp-route-id="@item.IdCompra" class="btn btn-danger">Eliminar</a>
-
-                </td>
-            </tr>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> @ViewData["Title"] = "Lista de Compras"</title>
+    <link href="https://fonts.googleapis.com/css2?family=Segoe+UI&display=swap" rel="stylesheet">
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+            overflow-x: hidden; /* Previene scroll horizontal */
         }
-    </tbody>
-</table>
+
+
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .container-compras {
+            flex: 1;
+            padding: 40px 20px;
+            max-width: auto;
+            margin: 0 auto;
+            background-color: white;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            margin-bottom: 5rem;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #28a745;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .table-responsive {
+            margin-top: 30px;
+        }
+
+        .table {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;
+        }
+
+            .table th, .table td {
+                padding: 12px;
+                text-align: center;
+                border: 1px solid #ddd;
+                vertical-align: middle;
+            }
+
+            .table th {
+                background-color: #28a745;
+                color: white;
+                font-weight: bold;
+            }
+
+            .table td {
+                background-color: #f9f9f9;
+            }
+
+        .btn + .btn {
+            margin-left: 5px;
+        }
+
+        .btn-sm {
+            font-size: 0.875rem;
+        }
+
+    </style>
+</head>
+<body>
+        <div class="container-compras">
+            <h1>Compras</h1>
+
+            <p class="text-center">
+                <a asp-action="Create" class="btn btn-success mb-3">➕ Crear Compra</a>
+            </p>
+
+            <div class="table-responsive">
+
+                <table class="table table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th>@Html.DisplayNameFor(model => model.First().IdUsuario)</th>
+                            <th>@Html.DisplayNameFor(model => model.First().IdProveedor)</th>
+                            <th>@Html.DisplayNameFor(model => model.First().TipoDocumento)</th>
+                            <th>@Html.DisplayNameFor(model => model.First().NumeroDocumento)</th>
+                            <th>@Html.DisplayNameFor(model => model.First().MontoTotal)</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@Html.DisplayFor(modelItem => item.IdUsuario)</td>
+                                <td>@Html.DisplayFor(modelItem => item.IdProveedor)</td>
+                                <td>@Html.DisplayFor(modelItem => item.TipoDocumento)</td>
+                                <td>@Html.DisplayFor(modelItem => item.NumeroDocumento)</td>
+                                <td>@Html.DisplayFor(modelItem => item.MontoTotal)</td>
+                                <td>
+                                    <a asp-action="Details" asp-route-id="@item.IdCompra" class="btn btn-sm btn-info">Detalles</a>
+                                    <a asp-action="Edit" asp-route-id="@item.IdCompra" class="btn btn-sm btn-warning">Editar</a>
+                                    <a asp-action="Delete" asp-route-id="@item.IdCompra" class="btn btn-sm btn-danger">Eliminar</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+
+            </div>
+            
+        </div>
+
+</body>
+</html>
+

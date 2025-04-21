@@ -58,6 +58,8 @@ FechaRegistro datetime default getdate()
 
 go
 
+update usuario set Correo  = NombreCompleto + Correo
+
 create table CATEGORIA(
 IdCategoria int primary key identity,
 Descripcion varchar(100),
@@ -865,3 +867,4 @@ select * from PRODUCTO
 select * from PROVEEDOR
 select * from USUARIO
 select * from CLIENTE
+select * from ROL
