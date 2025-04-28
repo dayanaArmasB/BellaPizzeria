@@ -90,6 +90,7 @@
                         <th>@Html.DisplayNameFor(model => model.First().Descripcion)</th>
                         <th>@Html.DisplayNameFor(model => model.First().Estado)</th>
                         <th>@Html.DisplayNameFor(model => model.First().FechaRegistro)</th>
+                        <th>@Html.DisplayNameFor(model => model.First().FechaEdicion)</th>
                         <th>Acciones</th>
                     </tr>
                 </thead>
@@ -100,6 +101,7 @@
                             <td>@Html.DisplayFor(modelItem => item.Descripcion)</td>
                             <td>@Html.DisplayFor(modelItem => item.Estado)</td>
                             <td>@Html.DisplayFor(modelItem => item.FechaRegistro)</td>
+                            <td>@Html.DisplayFor(modelItem => item.FechaEdicion)</td>
                             <td>
                                 <a asp-action="Edit" asp-route-id="@item.IdCategoria" class="btn btn-sm btn-primary">Editar</a>
                                 <a asp-action="Details" asp-route-id="@item.IdCategoria" class="btn btn-sm btn-warning">Detalles</a>

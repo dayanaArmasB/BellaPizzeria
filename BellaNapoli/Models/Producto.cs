@@ -24,6 +24,7 @@ public partial class Producto
     public bool? Estado { get; set; }
 
     public DateTime? FechaRegistro { get; set; }
+    public DateTime? FechaEdicion { get; set; }
 
     public virtual ICollection<DetalleCompra> DetalleCompras { get; set; } = new List<DetalleCompra>();
 

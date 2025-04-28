@@ -10,6 +10,11 @@ Descripcion varchar(50),
 FechaRegistro datetime default getdate()
 )
 
+ALTER TABLE ROL
+ADD Estado bit DEFAULT 1;
+ALTER TABLE ROL
+ADD FechaEdicion datetime default getdate()
+
 go
 
 create table PERMISO(
@@ -18,6 +23,11 @@ IdRol int references ROL(IdRol),
 NombreMenu varchar(100),
 FechaRegistro datetime default getdate()
 )
+
+ALTER TABLE PERMISO
+ADD Estado bit DEFAULT 1;
+ALTER TABLE PERMISO
+ADD FechaEdicion datetime default getdate()
 
 go
 
@@ -31,6 +41,11 @@ Estado bit,
 FechaRegistro datetime default getdate()
 )
 
+ALTER TABLE PROVEEDOR
+ADD CONSTRAINT DF_Proveedor_Estado DEFAULT 1 FOR Estado;
+ALTER TABLE PROVEEDOR
+ADD FechaEdicion datetime default getdate()
+
 go
 
 create table CLIENTE(
@@ -42,6 +57,11 @@ Telefono varchar(50),
 Estado bit,
 FechaRegistro datetime default getdate()
 )
+
+ALTER TABLE CLIENTE
+ADD CONSTRAINT DF_Cliente_Estado DEFAULT 1 FOR Estado;
+ALTER TABLE CLIENTE
+ADD FechaEdicion datetime default getdate()
 
 go
 
@@ -56,6 +76,11 @@ Estado bit,
 FechaRegistro datetime default getdate()
 )
 
+ALTER TABLE USUARIO
+ADD CONSTRAINT DF_Usuario_Estado DEFAULT 1 FOR Estado;
+ALTER TABLE USUARIO
+ADD FechaEdicion datetime default getdate()
+
 go
 
 update usuario set Correo  = NombreCompleto + Correo
@@ -66,6 +91,11 @@ Descripcion varchar(100),
 Estado bit,
 FechaRegistro datetime default getdate()
 )
+
+ALTER TABLE CATEGORIA
+ADD CONSTRAINT DF_Categoria_Estado DEFAULT 1 FOR Estado;
+ALTER TABLE CATEGORIA
+ADD FechaEdicion datetime default getdate()
 
 go
 
@@ -81,6 +111,11 @@ PrecioVenta decimal(10,2) default 0,
 Estado bit,
 FechaRegistro datetime default getdate()
 )
+
+ALTER TABLE PRODUCTO
+ADD CONSTRAINT DF_Producto_Estado DEFAULT 1 FOR Estado;
+ALTER TABLE PRODUCTO
+ADD FechaEdicion datetime default getdate()
 
 go
 

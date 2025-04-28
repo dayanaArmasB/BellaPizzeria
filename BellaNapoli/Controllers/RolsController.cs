@@ -55,7 +55,7 @@ namespace BellaNapoli.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("IdRol,Descripcion,FechaRegistro")] Rol rol)
+        public async Task<IActionResult> Create([Bind("IdRol,Descripcion,Estado,FechaRegistro,FechaEdicion")] Rol rol)
         {
             if (ModelState.IsValid)
             {

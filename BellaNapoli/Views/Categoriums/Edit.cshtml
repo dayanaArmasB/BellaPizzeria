@@ -69,6 +69,11 @@
             border-radius: 5px;
             padding: 10px;
         }
+
+        .radio-buttons{
+            margin-top:10px;
+        }
+
     </style>
 </head>
 <body>
@@ -90,18 +95,22 @@
 
             <div class="form-group">
                 <label asp-for="Estado" class="control-label"></label>
-                <input asp-for="Estado" class="form-control" />
+
+                <div class="radio-buttons">
+                    <label>
+                        <input asp-for="Estado" type="radio" value="true" /> Habilitado
+                    </label>
+                    <label>
+                        <input asp-for="Estado" type="radio" value="false" /> Deshabilitado
+                    </label>
+                </div>
+
                 <span asp-validation-for="Estado" class="text-danger"></span>
             </div>
 
-            <div class="form-group">
-                <label asp-for="FechaRegistro" class="control-label"></label>
-                <input asp-for="FechaRegistro" class="form-control" />
-                <span asp-validation-for="FechaRegistro" class="text-danger"></span>
-            </div>
         </form>
 
-        <div class="form-control">
+        <div class="form-buttons">
             <input type="submit" value="💾 Guardar" class="btn btn-primary" />
             <a asp-action="Index" class="btn btn-secondary">← Volver a la lista</a>
         </div>

@@ -8,8 +8,10 @@ public partial class Rol
     public int IdRol { get; set; }
 
     public string? Descripcion { get; set; }
+    public bool? Estado { get; set; }
 
     public DateTime? FechaRegistro { get; set; }
+    public DateTime? FechaEdicion { get; set; }
 
     public virtual ICollection<Permiso> Permisos { get; set; } = new List<Permiso>();
 
