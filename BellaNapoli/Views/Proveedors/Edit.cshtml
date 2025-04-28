@@ -3,79 +3,130 @@
 @{
     ViewData["Title"] = "Editar Proveedor";
 }
-<style>
-    html, body {
-        height: 100%;
-        margin: 0;
-        padding: 0;
-    }
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <title>@ViewData["Title"]</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://fonts.googleapis.com/css2?family=Segoe+UI&display=swap" rel="stylesheet">
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #fffafa;
+            overflow-x: hidden; /* Previene scroll horizontal */
+        }
 
-    body {
-        display: flex;
-        flex-direction: column;
-        border-left: 20px solid green;
-        border-right: 20px solid green;
-    }
+        .container-editar {
+            flex: 1;
+            padding: 40px 20px;
+            max-width: auto;
+            margin: 40px auto;
+            background-color: #fff;
+            border-radius: 10px;
+            margin-bottom: 5rem;
+            box-shadow: 0 0 15px rgba(0, 123, 255, 0.1);
+            border: 2px solid #007bff;
+        }
 
-    .container {
-        flex: 1;
-        padding: 20px;
-    }
-</style>
+        h1 {
+            text-align: center;
+            font-size: 2.2rem;
+            color: #007bff;
+            margin-bottom: 10px;
+        }
 
-<h1>Editar Proveedor</h1>
+        h4 {
+            text-align: center;
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            color: #555;
+        }
 
-<h4>Proveedor</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="IdProveedor" />
+        hr {
+            margin: 20px 0;
+            border-top: 2px solid #007bff;
+        }
 
-            <div class="form-group">
-                <label asp-for="Documento" class="control-label"></label>
-                <input asp-for="Documento" class="form-control" />
-                <span asp-validation-for="Documento" class="text-danger"></span>
-            </div>
+        .form-group {
+            margin-bottom: 20px;
+        }
 
-            <div class="form-group">
-                <label asp-for="RazonSocial" class="control-label"></label>
-                <input asp-for="RazonSocial" class="form-control" />
-                <span asp-validation-for="RazonSocial" class="text-danger"></span>
-            </div>
+        label {
+            font-weight: 600;
+        }
 
-            <div class="form-group">
-                <label asp-for="Correo" class="control-label"></label>
-                <input asp-for="Correo" class="form-control" />
-                <span asp-validation-for="Correo" class="text-danger"></span>
-            </div>
+        .form-buttons {
+            margin-top: 20px;
+            text-align: center;
+        }
 
-            <div class="form-group">
-                <label asp-for="Telefono" class="control-label"></label>
-                <input asp-for="Telefono" class="form-control" />
-                <span asp-validation-for="Telefono" class="text-danger"></span>
-            </div>
+        .form-control {
+            border-radius: 5px;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-editar">
+        <h1>Editar Proveedor</h1>
 
-            <div class="form-group">
-                <label asp-for="Estado" class="control-label"></label>
-                <input asp-for="Estado" class="form-control" />
-                <span asp-validation-for="Estado" class="text-danger"></span>
-            </div>
+        <div>
+            <h4>Proveedor</h4>
+            <hr />
+            <form asp-action="Edit">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="IdProveedor" />
 
-            <div class="form-group">
-                <input type="submit" value="Guardar" class="btn btn-primary" />
-            </div>
-        </form>
+                <div class="form-group">
+                    <label asp-for="Documento" class="control-label"></label>
+                    <input asp-for="Documento" class="form-control" />
+                    <span asp-validation-for="Documento" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="RazonSocial" class="control-label"></label>
+                    <input asp-for="RazonSocial" class="form-control" />
+                    <span asp-validation-for="RazonSocial" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Correo" class="control-label"></label>
+                    <input asp-for="Correo" class="form-control" />
+                    <span asp-validation-for="Correo" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Telefono" class="control-label"></label>
+                    <input asp-for="Telefono" class="form-control" />
+                    <span asp-validation-for="Telefono" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Estado" class="control-label"></label>
+                    <input asp-for="Estado" class="form-control" />
+                    <span asp-validation-for="Estado" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <input type="submit" value="Guardar" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+
+        <div class="form-control">
+            <a asp-action="Index" class="btn btn-secondary">Volver a la lista</a>
+        </div>
     </div>
-</div>
 
-<div>
-    <a asp-action="Index" class="btn btn-secondary">Volver a la lista</a>
-</div>
-
-@section Scripts {
-    @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    @section Scripts {
+        @{
+            await Html.RenderPartialAsync("_ValidationScriptsPartial");
+        }
     }
-}
+</body>
+</html>
+

@@ -58,6 +58,7 @@ namespace BellaNapoli.Controllers
         public IActionResult Create()
         {
             ViewData["IdRol"] = new SelectList(_context.Rols, "IdRol", "NombreRol"); // Mostrar nombres de roles
+            ViewData["Title"] = "test";
             return View();
         }
 

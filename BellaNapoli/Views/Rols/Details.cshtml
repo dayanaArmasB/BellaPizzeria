@@ -3,47 +3,94 @@
 @{
     ViewData["Title"] = "Detalles de rol";
 }
-<style>
-    html, body {
-        height: 100%;
-        margin: 0;
-        padding: 0;
-    }
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <title>@ViewData["Title"]</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://fonts.googleapis.com/css2?family=Segoe+UI&display=swap" rel="stylesheet">
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #fffafa;
+            overflow-x: hidden; /* Previene scroll horizontal */
+        }
 
-    body {
-        display: flex;
-        flex-direction: column;
-        border-left: 20px solid green;
-        border-right: 20px solid green;
-    }
+        .container-detalles {
+            flex: 1;
+            padding: 40px 20px;
+            max-width: auto;
+            margin: 40px auto;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            margin-bottom: 5rem;
+            border: 2px solid #28a745;
+        }
 
-    .container {
-        flex: 1;
-        padding: 20px;
-    }
-</style>
+        h1 {
+            text-align: center;
+            font-size: 2.2rem;
+            color: #28a745;
+            margin-bottom: 10px;
+        }
 
-<h1>Detalles de rol</h1>
+        h4 {
+            text-align: center;
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            color: #555;
+        }
 
-<div>
-    <h4>Rol</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Descripcion)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Descripcion)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.FechaRegistro)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.FechaRegistro)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.IdRol" class="btn btn-success">Editar</a> |
-    <a asp-action="Index" class="btn btn-secondary">Volver a la lista</a>
-</div>
+        dt {
+            font-weight: bold;
+            color: #333;
+        }
+
+        dd {
+            margin-bottom: 15px;
+            color: #555;
+        }
+
+        .form-buttons {
+            margin-top: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-detalles">
+        <h1>Detalles de rol</h1>
+
+        <div>
+            <h4>Rol</h4>
+            <hr />
+            <dl class="row">
+                <dt class="col-sm-4">
+                    @Html.DisplayNameFor(model => model.Descripcion)
+                </dt>
+                <dd class="col-sm-8">
+                    @Html.DisplayFor(model => model.Descripcion)
+                </dd>
+                <dt class="col-sm-4">
+                    @Html.DisplayNameFor(model => model.FechaRegistro)
+                </dt>
+                <dd class="col-sm-8">
+                    @Html.DisplayFor(model => model.FechaRegistro)
+                </dd>
+            </dl>
+        </div>
+
+        <div class="form-buttons">
+            <a asp-action="Edit" asp-route-id="@Model?.IdRol" class="btn btn-success">Editar</a>
+            <a asp-action="Index" class="btn btn-secondary">Volver a la lista</a>
+        </div>
+    </div>
+</body>
+</html>
+
+

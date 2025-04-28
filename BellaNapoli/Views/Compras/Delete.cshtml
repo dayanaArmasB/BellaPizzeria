@@ -3,72 +3,125 @@
 @{
     ViewData["Title"] = "Eliminar Compra";
 }
-<style>
-    html, body {
-        height: 100%;
-        margin: 0;
-        padding: 0;
-    }
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"]</title>
+    <link href="https://fonts.googleapis.com/css2?family=Segoe+UI&display=swap" rel="stylesheet">
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #fffafa;
+            overflow-x: hidden; /* Previene scroll horizontal */
+        }
 
-    body {
-        display: flex;
-        flex-direction: column;
-        border-left: 20px solid green;
-        border-right: 20px solid green;
-    }
+        .container-eliminar {
+            flex: 1;
+            padding: 40px 20px;
+            max-width: auto;
+            margin: 40px auto;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            margin-bottom: 5rem;
+            border: 2px solid #dc3545;
+        }
 
-    .container {
-        flex: 1;
-        padding: 20px;
-    }
-</style>
+        h1 {
+            text-align: center;
+            font-size: 2.2rem;
+            color: #dc3545;
+            margin-bottom: 10px;
+        }
 
-<h1>Eliminar Compra</h1>
+        h3 {
+            text-align: center;
+            font-size: 1.2rem;
+            color: #666;
+            margin-bottom: 30px;
+        }
 
-<h3>¿Está seguro de eliminar esta compra?</h3>
-<div>
-    <h4>Compra</h4>
-    <hr />
-    <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.IdUsuario)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.IdUsuario)
-        </dd>
+        h4 {
+            text-align: center;
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            color: #555;
+        }
 
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.IdProveedor)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.IdProveedor)
-        </dd>
+        dt {
+            font-weight: bold;
+            color: #333;
+        }
 
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.TipoDocumento)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.TipoDocumento)
-        </dd>
+        dd {
+            margin-bottom: 15px;
+            color: #555;
+        }
 
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.NumeroDocumento)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.NumeroDocumento)
-        </dd>
+        .form-buttons {
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
 
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.MontoTotal)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.MontoTotal)
-        </dd>
-    </dl>
+    <div class="container-eliminar">
+        <h1>Eliminar Compra</h1>
+        <h3>¿Está seguro de eliminar esta compra?</h3>
 
-    <form asp-action="Delete">
-        <input type="hidden" asp-for="IdUsuario" />
-        <input type="submit" value="Eliminar" class="btn btn-danger" /> |
-        <a asp-action="Index" class="btn btn-secondary">Volver a la lista</a>
-    </form>
-</div>
+        <h4>Compra</h4>
+        <hr />
+        <dl class="row">
+            <dt class="col-sm-4">
+                @Html.DisplayNameFor(model => model.IdUsuario)
+            </dt>
+            <dd class="col-sm-8">
+                @Html.DisplayFor(model => model.IdUsuario)
+            </dd>
+
+            <dt class="col-sm-4">
+                @Html.DisplayNameFor(model => model.IdProveedor)
+            </dt>
+            <dd class="col-sm-8">
+                @Html.DisplayFor(model => model.IdProveedor)
+            </dd>
+
+            <dt class="col-sm-4">
+                @Html.DisplayNameFor(model => model.TipoDocumento)
+            </dt>
+            <dd class="col-sm-8">
+                @Html.DisplayFor(model => model.TipoDocumento)
+            </dd>
+
+            <dt class="col-sm-4">
+                @Html.DisplayNameFor(model => model.NumeroDocumento)
+            </dt>
+            <dd class="col-sm-8">
+                @Html.DisplayFor(model => model.NumeroDocumento)
+            </dd>
+
+            <dt class="col-sm-4">
+                @Html.DisplayNameFor(model => model.MontoTotal)
+            </dt>
+            <dd class="col-sm-8">
+                @Html.DisplayFor(model => model.MontoTotal)
+            </dd>
+        </dl>
+
+        <form asp-action="Delete">
+            <input type="hidden" asp-for="IdCompra" />
+            <div class="form-buttons">
+                <input type="submit" value="🗑️ Eliminar" class="btn btn-danger" />
+                <a asp-action="Index" class="btn btn-secondary ml-2">← Volver a la lista</a>
+            </div>
+        </form>
+    </div>
+
+</body>
+</html>

@@ -1,63 +1,118 @@
 ﻿@model BellaNapoli.Models.Categorium
 
 @{
-    ViewData["Title"] = "Editar categoría";
+    ViewData["Title"] = "Editar Categoría";
 }
-<style>
-    html, body {
-        height: 100%;
-        margin: 0;
-        padding: 0;
-    }
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"]</title>
+    <link href="https://fonts.googleapis.com/css2?family=Segoe+UI&display=swap" rel="stylesheet">
+    <style>
 
-    body {
-        display: flex;
-        flex-direction: column;
-        border-left: 20px solid green;
-        border-right: 20px solid green;
-    }
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #fffafa;
+            overflow-x: hidden; /* Previene scroll horizontal */
+        }
 
-    .container {
-        flex: 1;
-        padding: 20px;
-    }
-</style>
+        .container-editar {
+            flex: 1;
+            padding: 40px 20px;
+            max-width: auto;
+            margin: 40px auto;
+            background-color: #fff;
+            border-radius: 10px;
+            margin-bottom: 5rem;
+            box-shadow: 0 0 15px rgba(0, 123, 255, 0.1);
+            border: 2px solid #007bff;
+        }
 
-<h1>Editar categoría</h1>
+        h1 {
+            text-align: center;
+            font-size: 2.2rem;
+            color: #007bff;
+            margin-bottom: 10px;
+        }
 
-<h4>Categorium</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
+        h4 {
+            text-align: center;
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            color: #555;
+        }
+
+        hr {
+            margin: 20px 0;
+            border-top: 2px solid #007bff;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-weight: 600;
+        }
+
+        .form-buttons {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .form-control {
+            border-radius: 5px;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container-edit">
+        <h1>Editar Categoría</h1>
+        <h4>Detalles de la Categoría</h4>
+        <hr />
+
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="IdCategoria" />
+
             <div class="form-group">
                 <label asp-for="Descripcion" class="control-label"></label>
                 <input asp-for="Descripcion" class="form-control" />
                 <span asp-validation-for="Descripcion" class="text-danger"></span>
             </div>
+
             <div class="form-group">
                 <label asp-for="Estado" class="control-label"></label>
                 <input asp-for="Estado" class="form-control" />
                 <span asp-validation-for="Estado" class="text-danger"></span>
             </div>
+
             <div class="form-group">
                 <label asp-for="FechaRegistro" class="control-label"></label>
                 <input asp-for="FechaRegistro" class="form-control" />
                 <span asp-validation-for="FechaRegistro" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <input type="submit" value="Guardar" class="btn btn-primary" />
-            </div>
         </form>
+
+        <div class="form-control">
+            <input type="submit" value="💾 Guardar" class="btn btn-primary" />
+            <a asp-action="Index" class="btn btn-secondary">← Volver a la lista</a>
+        </div>
     </div>
-</div>
 
-<div>
-    <a asp-action="Index" class="btn btn-secondary">Volver a la lista</a>
-</div>
+    @section Scripts {
+        @{
+            await Html.RenderPartialAsync("_ValidationScriptsPartial");
+        }
+    }
 
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
+</body>
+</html>
+
