@@ -1,34 +1,39 @@
-Create database TEST_DBVENTA1
-USE TEST_DBVENTA1
-
+USE UniversityV3
 GO
+
+drop table if exists DETALLE_COMPRA;
+drop table if exists DETALLE_VENTA;
+drop table if exists NEGOCIO;
+drop table if exists COMPRA;
+drop table if exists VENTA;
+drop table if exists PRODUCTO;
+drop table if exists USUARIO;
+drop table if exists PERMISO;
+drop table if exists ROL;
+drop table if exists PROVEEDOR;
+drop table if exists CLIENTE;
+
+drop table if exists USUARIO;
+drop table if exists CATEGORIA;
 
 
 create table ROL(
 IdRol int primary key identity,
 Descripcion varchar(50),
-FechaRegistro datetime default getdate()
+FechaRegistro datetime default getdate(),
+FechaEdicion datetime default getdate(),
+Estado bit default 1
 )
-
-ALTER TABLE ROL
-ADD Estado bit DEFAULT 1;
-ALTER TABLE ROL
-ADD FechaEdicion datetime default getdate()
-
 go
 
 create table PERMISO(
 IdPermiso int primary key identity,
 IdRol int references ROL(IdRol),
 NombreMenu varchar(100),
-FechaRegistro datetime default getdate()
+FechaRegistro datetime default getdate(),
+FechaEdicion datetime default getdate(),
+Estado bit default 1
 )
-
-ALTER TABLE PERMISO
-ADD Estado bit DEFAULT 1;
-ALTER TABLE PERMISO
-ADD FechaEdicion datetime default getdate()
-
 go
 
 create table PROVEEDOR(
@@ -37,15 +42,10 @@ Documento varchar(50),
 RazonSocial varchar(50),
 Correo varchar(50),
 Telefono varchar(50),
-Estado bit,
-FechaRegistro datetime default getdate()
+Estado bit default 1,
+FechaRegistro datetime default getdate(),
+FechaEdicion datetime default getdate(),
 )
-
-ALTER TABLE PROVEEDOR
-ADD CONSTRAINT DF_Proveedor_Estado DEFAULT 1 FOR Estado;
-ALTER TABLE PROVEEDOR
-ADD FechaEdicion datetime default getdate()
-
 go
 
 create table CLIENTE(
@@ -54,17 +54,12 @@ Documento varchar(50),
 NombreCompleto varchar(50),
 Correo varchar(50),
 Telefono varchar(50),
-Estado bit,
-FechaRegistro datetime default getdate()
+Estado bit DEFAULT 1,
+FechaRegistro datetime default getdate(),
+FechaEdicion datetime default getdate()
 )
 
-ALTER TABLE CLIENTE
-ADD CONSTRAINT DF_Cliente_Estado DEFAULT 1 FOR Estado;
-ALTER TABLE CLIENTE
-ADD FechaEdicion datetime default getdate()
-
-go
-
+ 
 create table USUARIO(
 IdUsuario int primary key identity,
 Documento varchar(50),
@@ -72,33 +67,19 @@ NombreCompleto varchar(50),
 Correo varchar(50),
 Clave varchar(50),
 IdRol int references ROL(IdRol),
-Estado bit,
-FechaRegistro datetime default getdate()
+Estado bit default 1,
+FechaRegistro datetime default getdate(),
+FechaEdicion datetime default getdate()
 )
-
-ALTER TABLE USUARIO
-ADD CONSTRAINT DF_Usuario_Estado DEFAULT 1 FOR Estado;
-ALTER TABLE USUARIO
-ADD FechaEdicion datetime default getdate()
-
-go
-
-update usuario set Correo  = NombreCompleto + Correo
 
 create table CATEGORIA(
 IdCategoria int primary key identity,
 Descripcion varchar(100),
-Estado bit,
-FechaRegistro datetime default getdate()
+Estado bit default 1 ,
+FechaRegistro datetime default getdate(),
+FechaEdicion datetime default getdate()
 )
-
-ALTER TABLE CATEGORIA
-ADD CONSTRAINT DF_Categoria_Estado DEFAULT 1 FOR Estado;
-ALTER TABLE CATEGORIA
-ADD FechaEdicion datetime default getdate()
-
-go
-
+ 
 create table PRODUCTO(
 IdProducto int primary key identity,
 Codigo varchar(50),
@@ -108,16 +89,10 @@ IdCategoria int references CATEGORIA(IdCategoria),
 Stock int not null default 0,
 PrecioCompra decimal(10,2) default 0,
 PrecioVenta decimal(10,2) default 0,
-Estado bit,
-FechaRegistro datetime default getdate()
+Estado bit default 1,
+FechaRegistro datetime default getdate(),
+FechaEdicion datetime default getdate()
 )
-
-ALTER TABLE PRODUCTO
-ADD CONSTRAINT DF_Producto_Estado DEFAULT 1 FOR Estado;
-ALTER TABLE PRODUCTO
-ADD FechaEdicion datetime default getdate()
-
-go
 
 create table COMPRA(
 IdCompra int primary key identity,
@@ -192,7 +167,7 @@ go
 go
 
 
-create PROC SP_REGISTRARUSUARIO(
+create or alter PROC SP_REGISTRARUSUARIO(
 @Documento varchar(50),
 @NombreCompleto varchar(100),
 @Correo varchar(100),
@@ -224,7 +199,7 @@ end
 
 go
 
-create PROC SP_EDITARUSUARIO(
+create or alter PROC SP_EDITARUSUARIO(
 @IdUsuario int,
 @Documento varchar(50),
 @NombreCompleto varchar(100),
@@ -262,7 +237,7 @@ begin
 end
 go
 
-create PROC SP_ELIMINARUSUARIO(
+create or alter PROC SP_ELIMINARUSUARIO(
 @IdUsuario int,
 @Respuesta bit output,
 @Mensaje varchar(500) output
@@ -306,7 +281,7 @@ go
 /* ---------- PROCEDIMIENTOS PARA CATEGORIA -----------------*/
 
 
-create PROC SP_RegistrarCategoria(
+create or alter PROC SP_RegistrarCategoria(
 @Descripcion varchar(50),
 @Estado bit,
 @Resultado int output,
@@ -327,7 +302,7 @@ end
 
 go
 
-Create procedure sp_EditarCategoria(
+create or alter procedure sp_EditarCategoria(
 @IdCategoria int,
 @Descripcion varchar(50),
 @Estado bit,
@@ -352,7 +327,7 @@ end
 
 go
 
-create procedure sp_EliminarCategoria(
+create or alter procedure sp_EliminarCategoria(
 @IdCategoria int,
 @Resultado bit output,
 @Mensaje varchar(500) output
@@ -380,7 +355,7 @@ GO
 
 /* ---------- PROCEDIMIENTOS PARA PRODUCTO -----------------*/
 
-create PROC sp_RegistrarProducto(
+create or alter PROC sp_RegistrarProducto(
 @Codigo varchar(20),
 @Nombre varchar(30),
 @Descripcion varchar(30),
@@ -403,7 +378,7 @@ end
 
 GO
 
-create procedure sp_ModificarProducto(
+create or alter procedure sp_ModificarProducto(
 @IdProducto int,
 @Codigo varchar(20),
 @Nombre varchar(30),
@@ -435,7 +410,7 @@ end
 go
 
 
-create PROC SP_EliminarProducto(
+create or alter PROC SP_EliminarProducto(
 @IdProducto int,
 @Respuesta bit output,
 @Mensaje varchar(500) output
@@ -477,7 +452,7 @@ go
 
 /* ---------- PROCEDIMIENTOS PARA CLIENTE -----------------*/
 
-create PROC sp_RegistrarCliente(
+create or alter PROC sp_RegistrarCliente(
 @Documento varchar(50),
 @NombreCompleto varchar(50),
 @Correo varchar(50),
@@ -502,7 +477,7 @@ end
 
 go
 
-create PROC sp_ModificarCliente(
+create or alter PROC sp_ModificarCliente(
 @IdCliente int,
 @Documento varchar(50),
 @NombreCompleto varchar(50),
@@ -536,7 +511,7 @@ GO
 
 /* ---------- PROCEDIMIENTOS PARA PROVEEDOR -----------------*/
 
-create PROC sp_RegistrarProveedor(
+create or alter PROC sp_RegistrarProveedor(
 @Documento varchar(50),
 @RazonSocial varchar(50),
 @Correo varchar(50),
@@ -561,7 +536,7 @@ end
 
 GO
 
-create PROC sp_ModificarProveedor(
+create or alter PROC sp_ModificarProveedor(
 @IdProveedor int,
 @Documento varchar(50),
 @RazonSocial varchar(50),
@@ -594,7 +569,7 @@ end
 
 go
 
-create procedure sp_EliminarProveedor(
+create or alter procedure sp_EliminarProveedor(
 @IdProveedor int,
 @Resultado bit output,
 @Mensaje varchar(500) output
@@ -634,7 +609,7 @@ CREATE TYPE [dbo].[EDetalle_Compra] AS TABLE(
 GO
 
 
-CREATE PROCEDURE sp_RegistrarCompra(
+create or alter PROCEDURE sp_RegistrarCompra(
 @IdUsuario int,
 @IdProveedor int,
 @TipoDocumento varchar(500),
@@ -686,7 +661,6 @@ end
 GO
 
 /* PROCESOS PARA REGISTRAR UNA VENTA */
-
 CREATE TYPE [dbo].[EDetalle_Venta] AS TABLE(
 	[IdProducto] int NULL,
 	[PrecioVenta] decimal(18,2) NULL,
@@ -694,11 +668,10 @@ CREATE TYPE [dbo].[EDetalle_Venta] AS TABLE(
 	[SubTotal] decimal(18,2) NULL
 )
 
-
 GO
 
 
-create procedure usp_RegistrarVenta(
+create or alter procedure usp_RegistrarVenta(
 @IdUsuario int,
 @TipoDocumento varchar(500),
 @NumeroDocumento varchar(500),
@@ -744,7 +717,7 @@ end
 go
 
 
-create PROC sp_ReporteCompras(
+create or alter PROC sp_ReporteCompras(
  @fechainicio varchar(10),
  @fechafin varchar(10),
  @idproveedor int
@@ -770,7 +743,7 @@ create PROC sp_ReporteCompras(
 
  go
 
- CREATE PROC sp_ReporteVentas(
+ create or alter PROC sp_ReporteVentas(
  @fechainicio varchar(10),
  @fechafin varchar(10)
  )
@@ -810,14 +783,14 @@ GO
 
  insert into USUARIO(Documento,NombreCompleto,Correo,Clave,IdRol,Estado)
  values 
- ('101010','ADMIN','@GMAIL.COM','123',1,1)
+ ('101010','ADMIN','ADMIN@GMAIL.COM','123',1,1)
 
  GO
 
 
  insert into USUARIO(Documento,NombreCompleto,Correo,Clave,IdRol,Estado)
  values 
- ('20','EMPLEADO','@GMAIL.COM','456',2,1)
+ ('20','EMPLEADO','EMPLEADO@GMAIL.COM','456',2,1)
 
  GO
 
