@@ -1,3 +1,4 @@
+
 USE TEST_DBVENTA1
 GO
 
@@ -17,6 +18,7 @@ drop table if exists USUARIO;
 drop table if exists CATEGORIA;
 drop procedure if exists usp_RegistrarVenta;
 drop TYPE if exists [dbo].[EDetalle_Venta];
+drop procedure if exists sp_RegistrarCompra;
 drop TYPE if exists dbo.EDetalle_Compra;
 
 
