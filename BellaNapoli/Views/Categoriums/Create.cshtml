@@ -81,6 +81,20 @@
                 <input asp-for="Descripcion" class="form-control" />
                 <span asp-validation-for="Descripcion" class="text-danger"></span>
             </div>
+            <div class="form-group">
+                <label asp-for="Estado" class="control-label"></label>
+
+                <div class="radio-buttons">
+                    <label>
+                        <input asp-for="Estado" type="radio" value="true" /> Habilitado
+                    </label>
+                    <label>
+                        <input asp-for="Estado" type="radio" value="false" /> Deshabilitado
+                    </label>
+                </div>
+
+                <span asp-validation-for="Estado" class="text-danger"></span>
+            </div>
 
             <div class="form-buttons">
                 <input type="submit" value="➕ Crear" class="btn btn-primary" />

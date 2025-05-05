@@ -3,32 +3,78 @@
 @{
     ViewData["Title"] = "Crear nuevo cliente";
 }
-<style>
-    html, body {
-        height: 100%;
-        margin: 0;
-        padding: 0;
-    }
 
-    body {
-        display: flex;
-        flex-direction: column;
-        border-left: 20px solid green;
-        border-right: 20px solid green;
-    }
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"]</title>
+    <link href="https://fonts.googleapis.com/css2?family=Segoe+UI&display=swap" rel="stylesheet">
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #fffafa;
+            overflow-x: hidden; /* Previene scroll horizontal */
+        }
 
-    .container {
-        flex: 1;
-        padding: 20px;
-    }
-</style>
 
-<h1>Crear nuevo cliente</h1>
+        .container-crear {
+            flex: 1;
+            padding: 40px 20px;
+            max-width: auto;
+            margin: 40px auto;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            margin-bottom: 5rem;
+            border: 2px solid #28a745;
+        }
 
-<h4>Cliente</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
+        h1 {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #dc3545;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        h4 {
+            text-align: center;
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            color: #555;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-weight: 600;
+        }
+
+        .form-control {
+            border-radius: 5px;
+            padding: 10px;
+        }
+
+        .form-buttons {
+            margin-top: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container-crear">
+        <h1>Crear nuevo cliente</h1>
+        <h4>Ingrese los datos correspondientes</h4>
+        <hr />
+
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
@@ -36,37 +82,56 @@
                 <input asp-for="Documento" class="form-control" />
                 <span asp-validation-for="Documento" class="text-danger"></span>
             </div>
+
             <div class="form-group">
                 <label asp-for="NombreCompleto" class="control-label"></label>
                 <input asp-for="NombreCompleto" class="form-control" />
                 <span asp-validation-for="NombreCompleto" class="text-danger"></span>
             </div>
+
             <div class="form-group">
                 <label asp-for="Correo" class="control-label"></label>
                 <input asp-for="Correo" class="form-control" />
                 <span asp-validation-for="Correo" class="text-danger"></span>
             </div>
+
             <div class="form-group">
                 <label asp-for="Telefono" class="control-label"></label>
                 <input asp-for="Telefono" class="form-control" />
                 <span asp-validation-for="Telefono" class="text-danger"></span>
             </div>
+
             <div class="form-group">
                 <label asp-for="Estado" class="control-label"></label>
-                <input asp-for="Estado" class="form-control" />
+
+                <div class="radio-buttons">
+                    <label>
+                        <input asp-for="Estado" type="radio" value="true" /> Habilitado
+                    </label>
+                    <label>
+                        <input asp-for="Estado" type="radio" value="false" /> Deshabilitado
+                    </label>
+                </div>
+
                 <span asp-validation-for="Estado" class="text-danger"></span>
             </div>
-            <div class="form-group">
+
+            <div class="form-buttons">
                 <input type="submit" value="Crear" class="btn btn-primary" />
             </div>
         </form>
+
+        <div>
+            <a asp-action="Index" class="btn btn-secondary">← Volver a la lista</a>
+        </div>
     </div>
-</div>
 
-<div>
-    <a asp-action="Index" class="btn btn-secondary">Volver a la lista</a>
-</div>
+    @section Scripts {
+        @{
+            await Html.RenderPartialAsync("_ValidationScriptsPartial");
+        }
+    }
 
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
+</body>
+</html>
+

@@ -1,4 +1,4 @@
-USE UniversityV3
+USE TEST_DBVENTA1
 GO
 
 drop table if exists DETALLE_COMPRA;
@@ -15,6 +15,9 @@ drop table if exists CLIENTE;
 
 drop table if exists USUARIO;
 drop table if exists CATEGORIA;
+drop procedure if exists usp_RegistrarVenta;
+drop TYPE if exists [dbo].[EDetalle_Venta];
+drop TYPE if exists dbo.EDetalle_Compra;
 
 
 create table ROL(
@@ -103,8 +106,6 @@ NumeroDocumento varchar(50),
 MontoTotal decimal(10,2),
 FechaRegistro datetime default getdate()
 )
-
-
 go
 
 
@@ -604,7 +605,6 @@ CREATE TYPE [dbo].[EDetalle_Compra] AS TABLE(
 	[Cantidad] int NULL,
 	[MontoTotal] decimal(18,2) NULL
 )
-
 
 GO
 

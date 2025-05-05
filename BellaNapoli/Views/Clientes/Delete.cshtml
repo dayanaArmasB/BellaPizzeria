@@ -8,69 +8,115 @@
         height: 100%;
         margin: 0;
         padding: 0;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #fffafa;
+        overflow-x: hidden; /* Previene scroll horizontal */
     }
 
-    body {
-        display: flex;
-        flex-direction: column;
-        border-left: 20px solid green;
-        border-right: 20px solid green;
-    }
-
-    .container {
+    .container-eliminar {
         flex: 1;
-        padding: 20px;
+        padding: 40px 20px;
+        max-width: auto;
+        margin: 40px auto;
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+        margin-bottom: 5rem;
+        border: 2px solid #dc3545;
+    }
+
+    h1 {
+        text-align: center;
+        font-size: 2.2rem;
+        color: #dc3545;
+        margin-bottom: 10px;
+    }
+
+    h3 {
+        text-align: center;
+        font-size: 1.2rem;
+        color: #666;
+        margin-bottom: 30px;
+    }
+
+    h4 {
+        text-align: center;
+        font-size: 1.3rem;
+        margin-bottom: 20px;
+        color: #555;
+    }
+
+    dt {
+        font-weight: bold;
+        color: #333;
+    }
+
+    dd {
+        margin-bottom: 15px;
+        color: #555;
+    }
+
+    .form-buttons {
+        margin-top: 20px;
+        text-align: center;
     }
 </style>
 
-<h1>Eliminar cliente</h1>
 
-<h3>¿Está seguro de eliminar a este cliente?</h3>
-<div>
-    <h4>Cliente</h4>
+<div class="container-eliminar">
+    <h1>Eliminar cliente</h1>
+
+    <h3>¿Está seguro de eliminar a este cliente?</h3>
+    <h4> Información del Cliente</h4>
     <hr />
+
     <dl class="row">
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Documento)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Documento)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.NombreCompleto)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.NombreCompleto)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Correo)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Correo)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Telefono)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Telefono)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Estado)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Estado)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.FechaRegistro)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.FechaRegistro)
         </dd>
     </dl>
-    
+
     <form asp-action="Delete">
         <input type="hidden" asp-for="IdCliente" />
         <input type="submit" value="Eliminar" class="btn btn-danger" /> |
         <a asp-action="Index" class="btn btn-secondary">Volver a la lista</a>
     </form>
 </div>
+
+
+ 
+
+
