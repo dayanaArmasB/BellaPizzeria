@@ -37,7 +37,7 @@ namespace BellaNapoli.Controllers
                                         .Include(u => u.IdRolNavigation)
                                         .FirstOrDefaultAsync(u => u.Correo == correo && u.Clave == clave);
 
-            var rol = await _context.Rols.Where(x => x.IdRol == (int)usuario.IdRol).FirstOrDefaultAsync();
+            
 
 
             if (usuario == null)
@@ -45,7 +45,7 @@ namespace BellaNapoli.Controllers
                 ModelState.AddModelError(string.Empty, "Credenciales inválidas.");
                 return View();
             }
-
+            var rol = await _context.Rols.Where(x => x.IdRol == (int)usuario.IdRol).FirstOrDefaultAsync();
             var claims = new List<Claim>
             {
                 new Claim(ClaimTypes.NameIdentifier, usuario.IdUsuario.ToString()),

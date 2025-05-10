@@ -57,8 +57,9 @@ namespace BellaNapoli.Controllers
         // GET: Usuarios/Create
         public IActionResult Create()
         {
-            ViewData["IdRol"] = new SelectList(_context.Rols, "IdRol", "NombreRol"); // Mostrar nombres de roles
-            ViewData["Title"] = "test";
+            //ViewData["IdRol"] = new SelectList(_context.Rols, "IdRol", "NombreRol"); // Mostrar nombres de roles
+            //ViewData["Title"] = "test";
+            //ViewData["Title"] = "Crear Usuario";
             return View();
         }
 
