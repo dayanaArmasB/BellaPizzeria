@@ -57,9 +57,16 @@ namespace BellaNapoli.Controllers
         // GET: Usuarios/Create
         public IActionResult Create()
         {
-            //ViewData["IdRol"] = new SelectList(_context.Rols, "IdRol", "NombreRol"); // Mostrar nombres de roles
-            //ViewData["Title"] = "test";
-            //ViewData["Title"] = "Crear Usuario";
+            var roles = _context.Rols?.ToList(); // Previene NullReferenceException
+
+            if (roles == null || !roles.Any())
+            {
+                // Opcional: podrías loguear esto o mostrar una advertencia
+                roles = new List<Rol>(); // Lista vacía para evitar que falle el SelectList
+            }
+
+            ViewData["IdRol"] = new SelectList(roles, "IdRol", "Descripcion");
+            ViewData["Title"] = "Crear Usuario";
             return View();
         }
 
@@ -104,7 +111,7 @@ namespace BellaNapoli.Controllers
                     Console.WriteLine("No hay roles disponibles en la base de datos.");
                 }
 
-                ViewData["IdRol"] = new SelectList(roles, "IdRol", "NombreRol", usuario.IdRol ?? 0);
+                ViewData["IdRol"] = new SelectList(roles, "IdRol", "NombreRol", usuario.IdRol);
                 return View(usuario);
             }
             catch (Exception ex)
@@ -151,7 +158,7 @@ namespace BellaNapoli.Controllers
                 Console.WriteLine("No hay roles disponibles en la base de datos para el POST.");
             }
 
-            ViewData["IdRol"] = new SelectList(roles, "IdRol", "NombreRol", usuario.IdRol ?? 0);
+            ViewData["IdRol"] = new SelectList(roles, "IdRol", "NombreRol", usuario.IdRol);
             return View(usuario);
         }
 

@@ -87,6 +87,7 @@
             <table class="table table-striped table-bordered">
                 <thead>
                     <tr>
+                        <th>@Html.DisplayNameFor(model => model.First().IdRol)</th>
                         <th>@Html.DisplayNameFor(model => model.First().Descripcion)</th>
                         <th>@Html.DisplayNameFor(model => model.First().Estado)</th>
                         <th>@Html.DisplayNameFor(model => model.First().FechaRegistro)</th>
@@ -98,6 +99,7 @@
                     @foreach (var item in Model)
                     {
                         <tr>
+                            <td>@Html.DisplayFor(modelItem => item.IdRol)</td>
                             <td>@Html.DisplayFor(modelItem => item.Descripcion)</td>
                             <td>@Html.DisplayFor(modelItem => item.Estado)</td>
                             <td>@Html.DisplayFor(modelItem => item.FechaRegistro)</td>

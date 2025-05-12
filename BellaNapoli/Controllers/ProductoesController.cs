@@ -55,9 +55,11 @@ namespace BellaNapoli.Controllers
         // GET: Productoes/Create
         public IActionResult Create()
         {
-            ViewData["IdCategoria"] = new SelectList(_context.Categoria, "IdCategoria", "IdCategoria");
+            var categorias = _context.Categoria.ToList(); // materializa la consulta
+            ViewData["IdCategoria"] = new SelectList(categorias, "IdCategoria", "Descripcion");
             return View();
         }
+
 
         // POST: Productoes/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
