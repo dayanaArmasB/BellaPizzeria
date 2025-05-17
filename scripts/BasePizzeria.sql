@@ -94,7 +94,7 @@ IdCategoria int references CATEGORIA(IdCategoria),
 Stock int not null default 0,
 PrecioCompra decimal(10,2) default 0,
 PrecioVenta decimal(10,2) default 0,
-Estado bit default 1,
+Estado bit default 1 NOT NULL,
 FechaRegistro datetime default getdate(),
 FechaEdicion datetime default getdate()
 )

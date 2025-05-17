@@ -95,14 +95,17 @@
 
             <div class="form-group">
                 <label asp-for="IdCategoria" class="control-label"></label>
-                <select asp-for="IdCategoria" class="form-control" asp-items="ViewBag.IdCategoria"></select>
+                <select asp-for="IdCategoria" class="form-control" asp-items="ViewBag.IdCategoria">
+                    <option value="0">-- SELECCIONE UNA CATEGORÍA --</option>
+                </select>
             </div>
 
             <div class="form-group">
                 <label asp-for="Stock" class="control-label"></label>
-                <input asp-for="Stock" class="form-control" />
+                <input asp-for="Stock" class="form-control" type="number" min="1" max="50" />
                 <span asp-validation-for="Stock" class="text-danger"></span>
             </div>
+
             <div class="form-group">
                 <label asp-for="Estado" class="control-label"></label>
 
@@ -111,12 +114,13 @@
                         <input asp-for="Estado" type="radio" value="true" /> Habilitado
                     </label>
                     <label>
-                        <input asp-for="Estado" type="radio" value="false" /> Deshabilitado
+                        <input asp-for="Estado" type="radio" value="false" disabled /> Deshabilitado
                     </label>
                 </div>
 
                 <span asp-validation-for="Estado" class="text-danger"></span>
             </div>
+
 
             <div class="form-buttons">
                 <input type="submit" value="Crear Producto" class="btn btn-primary" />
