@@ -78,6 +78,7 @@ namespace BellaNapoli.Controllers
             if (ModelState.IsValid)
             {
                 usuario.FechaRegistro = DateTime.Now; // Establecer la fecha de registro actual
+                usuario.FechaEdicion = DateTime.Now;
                 _context.Add(usuario);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));

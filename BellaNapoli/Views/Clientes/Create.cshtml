@@ -79,13 +79,13 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Documento" class="control-label"></label>
-                <input asp-for="Documento" class="form-control" />
+                <input asp-for="Documento" class="form-control" type="number" />
                 <span asp-validation-for="Documento" class="text-danger"></span>
             </div>
 
             <div class="form-group">
                 <label asp-for="NombreCompleto" class="control-label"></label>
-                <input asp-for="NombreCompleto" class="form-control" />
+                <input asp-for="NombreCompleto" class="form-control" type="text" />
                 <span asp-validation-for="NombreCompleto" class="text-danger"></span>
             </div>
 
@@ -97,7 +97,7 @@
 
             <div class="form-group">
                 <label asp-for="Telefono" class="control-label"></label>
-                <input asp-for="Telefono" class="form-control" />
+                <input asp-for="Telefono" class="form-control"  type="number"/>
                 <span asp-validation-for="Telefono" class="text-danger"></span>
             </div>
 
@@ -109,7 +109,7 @@
                         <input asp-for="Estado" type="radio" value="true" /> Habilitado
                     </label>
                     <label>
-                        <input asp-for="Estado" type="radio" value="false" /> Deshabilitado
+                        <input asp-for="Estado" type="radio" value="false" disabled /> Deshabilitado
                     </label>
                 </div>
 
