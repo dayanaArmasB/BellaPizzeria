@@ -45,14 +45,38 @@ namespace BellaNapoli.Controllers
             return View(detalleVentum);
         }
 
-        // GET: DetalleVentums/Create
-        public IActionResult Create()
+        // GET: DetalleVentums/ByVenta/5
+        public async Task<IActionResult> ByVenta(int? id)
         {
-            ViewData["IdProducto"] = new SelectList(_context.Productos, "IdProducto", "IdProducto");
-            ViewData["IdVenta"] = new SelectList(_context.Venta, "IdVenta", "IdVenta");
-            return View();
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var detalles = await _context.DetalleVenta
+                .Include(d => d.IdProductoNavigation)
+                .Include(d => d.IdVentaNavigation)
+                .Where(d => d.IdVenta == id)
+                .ToListAsync();
+
+            // No retornamos NotFound si la lista está vacía, solo pasamos la lista vacía a la vista
+            ViewBag.IdVenta = id;
+            return View(detalles);
         }
 
+        // GET: DetalleVentums/Create
+
+        public IActionResult Create(int? idVenta = null)
+        {
+            var detalle = new DetalleVentum();
+            if (idVenta.HasValue)
+            {
+                detalle.IdVenta = idVenta.Value;
+            }
+            ViewData["IdProducto"] = new SelectList(_context.Productos, "IdProducto", "Nombre");
+            ViewData["IdVenta"] = new SelectList(_context.Venta, "IdVenta", "IdVenta", idVenta);
+            return View(detalle);
+        }
         // POST: DetalleVentums/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
@@ -66,9 +90,9 @@ namespace BellaNapoli.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["IdProducto"] = new SelectList(_context.Productos, "IdProducto", "IdProducto", detalleVentum.IdProducto);
+            ViewData["IdProducto"] = new SelectList(_context.Productos, "IdProducto", "Nombre", detalleVentum.IdProducto);
             ViewData["IdVenta"] = new SelectList(_context.Venta, "IdVenta", "IdVenta", detalleVentum.IdVenta);
-            return View(detalleVentum);
+            return RedirectToAction("ByVenta", new { id = detalleVentum.IdVenta });
         }
 
         // GET: DetalleVentums/Edit/5

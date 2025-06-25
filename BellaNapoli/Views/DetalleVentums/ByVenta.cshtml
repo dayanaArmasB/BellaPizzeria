@@ -1,0 +1,163 @@
+﻿@model IEnumerable<BellaNapoli.Models.DetalleVentum>
+
+@{
+    ViewData["Title"] = "Detalles de Venta";
+    var idVenta = ViewBag.IdVenta ?? 0; // Asegúrate que el controlador pase ViewBag.IdVenta
+}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>@ViewData["Title"]</title>
+    <link href="https://fonts.googleapis.com/css2?family=Segoe+UI&display=swap" rel="stylesheet" />
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow-x: hidden;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            border-left: 20px solid green;
+            border-right: 20px solid green;
+        }
+
+        .container {
+            flex: 1;
+            padding: 40px 20px;
+            max-width: 1200px;
+            margin: 40px auto 5rem;
+            background-color: white;
+            box-shadow: 0 0 15px rgba(0,0,0,0.1);
+            border-radius: 10px;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #28a745;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .btn-success {
+            background-color: #28a745;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 1rem;
+            display: inline-block;
+            margin-bottom: 20px;
+            transition: background-color 0.3s ease;
+        }
+
+            .btn-success:hover {
+                background-color: #218838;
+            }
+
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+            .table th, .table td {
+                padding: 12px;
+                text-align: center;
+                border: 1px solid #ddd;
+                vertical-align: middle;
+            }
+
+            .table th {
+                background-color: #28a745;
+                color: white;
+                font-weight: bold;
+            }
+
+            .table td {
+                background-color: #f9f9f9;
+            }
+
+        a.action-link {
+            margin: 0 5px;
+            padding: 6px 12px;
+            border-radius: 5px;
+            font-size: 0.9rem;
+            text-decoration: none;
+            color: white;
+        }
+
+            a.action-link.edit {
+                background-color: #ffc107;
+                color: #212529;
+            }
+
+            a.action-link.details {
+                background-color: #007bff;
+            }
+
+            a.action-link.delete {
+                background-color: #dc3545;
+            }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>@ViewData["Title"]</h1>
+
+        <a asp-controller="DetalleVentums" asp-action="Create" asp-route-idVenta="@idVenta" class="btn-success">
+            ➕ Agregar producto
+        </a>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>@Html.DisplayNameFor(model => model.PrecioVenta)</th>
+                    <th>@Html.DisplayNameFor(model => model.Cantidad)</th>
+                    <th>@Html.DisplayNameFor(model => model.SubTotal)</th>
+                    <th>Fecha de registro</th>
+                    <th>Producto</th>
+                    <th>Venta</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (!Model.Any())
+                {
+                    <tr>
+                        <td colspan="7" style="text-align:center; font-style: italic;">
+                            No hay productos registrados para esta venta.
+                        </td>
+                    </tr>
+                }
+                else
+                {
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.PrecioVenta</td>
+                            <td>@item.Cantidad</td>
+                            <td>@item.SubTotal</td>
+                            <td>@item.FechaRegistro</td>
+                            <td>@item.IdProductoNavigation?.Nombre</td>
+                            <td>@($"{item.IdVentaNavigation?.IdVenta} - {item.IdVentaNavigation?.NombreCliente}")</td>
+                            <td>
+                                <a asp-action="Edit" asp-route-id="@item.IdDetalleVenta" class="action-link edit">Editar</a> |
+                                <a asp-action="Details" asp-route-id="@item.IdDetalleVenta" class="action-link details">Detalles</a> |
+                                <a asp-action="Delete" asp-route-id="@item.IdDetalleVenta" class="action-link delete">Eliminar</a>
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

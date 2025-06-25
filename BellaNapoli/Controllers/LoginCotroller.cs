@@ -37,23 +37,27 @@ namespace BellaNapoli.Controllers
                                         .Include(u => u.IdRolNavigation)
                                         .FirstOrDefaultAsync(u => u.Correo == correo && u.Clave == clave);
 
-            
-
-
             if (usuario == null)
             {
                 ModelState.AddModelError(string.Empty, "Credenciales inválidas.");
                 return View();
             }
+
             var rol = await _context.Rols.Where(x => x.IdRol == (int)usuario.IdRol).FirstOrDefaultAsync();
+
             var claims = new List<Claim>
             {
                 new Claim(ClaimTypes.NameIdentifier, usuario.IdUsuario.ToString()),
-                new Claim(ClaimTypes.Name, usuario.NombreCompleto ?? (usuario.Correo ??"")),
-                new Claim(ClaimTypes.Role, rol.Descripcion ?? "EMPLEADO" )
+                new Claim(ClaimTypes.Name, usuario.NombreCompleto ?? (usuario.Correo ?? "")),
+                new Claim(ClaimTypes.Role, rol.Descripcion ?? "EMPLEADO")
             };
 
-            var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+            var claimsIdentity = new ClaimsIdentity(
+            claims,
+            CookieAuthenticationDefaults.AuthenticationScheme,
+            ClaimTypes.Name,
+            ClaimTypes.Role
+        );
 
             await HttpContext.SignInAsync(
                 CookieAuthenticationDefaults.AuthenticationScheme,
@@ -65,14 +69,6 @@ namespace BellaNapoli.Controllers
                 });
 
             return RedirectToAction("Index", "Home");
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Logout()
-        {
-            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-            return RedirectToAction("Index", "Login");
         }
     }
 }

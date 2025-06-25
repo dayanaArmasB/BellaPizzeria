@@ -1,78 +1,178 @@
 ﻿@model BellaNapoli.Models.DetalleVentum
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Editar Detalle de Venta";
 }
-<style>
-    html, body {
-        height: 100%;
-        margin: 0;
-        padding: 0;
-    }
 
-    body {
-        display: flex;
-        flex-direction: column;
-        border-left: 20px solid green;
-        border-right: 20px solid green;
-    }
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <title>@ViewData["Title"]</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://fonts.googleapis.com/css2?family=Segoe+UI&display=swap" rel="stylesheet" />
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #fffafa;
+            overflow-x: hidden;
+        }
 
-    .container {
-        flex: 1;
-        padding: 20px;
-    }
-</style>
+        body {
+            display: flex;
+            flex-direction: column;
+            border-left: 20px solid green;
+            border-right: 20px solid green;
+        }
 
-<h1>Edit</h1>
+        .container-editar {
+            flex: 1;
+            padding: 40px 20px;
+            max-width: 600px;
+            margin: 40px auto 5rem;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.1);
+            border: 2px solid #28a745;
+        }
 
-<h4>DetalleVentum</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
+        h1 {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #28a745;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        h4 {
+            text-align: center;
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            color: #555;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-weight: 600;
+            display: block;
+            margin-bottom: 6px;
+        }
+
+        select.form-control,
+        input.form-control {
+            width: 100%;
+            border-radius: 5px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            font-size: 1rem;
+        }
+
+        .form-buttons {
+            margin-top: 30px;
+            text-align: center;
+        }
+
+        .btn-primary {
+            background-color: #28a745;
+            color: white;
+            font-size: 1.1rem;
+            padding: 10px 30px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+            .btn-primary:hover {
+                background-color: #218838;
+            }
+
+        a.btn-secondary {
+            display: inline-block;
+            margin-top: 15px;
+            font-size: 1rem;
+            padding: 8px 20px;
+            background-color: #6c757d;
+            color: white;
+            border-radius: 6px;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+
+            a.btn-secondary:hover {
+                background-color: #5a6268;
+            }
+
+        .text-danger {
+            color: #dc3545;
+            font-size: 0.9rem;
+            margin-top: 4px;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-editar">
+        <h1>Editar Detalle de Venta</h1>
+        <h4>Modifique la información</h4>
+        <hr />
         <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="IdDetalleVenta" />
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
             <div class="form-group">
-                <label asp-for="IdVenta" class="control-label"></label>
+                <label asp-for="IdVenta"></label>
                 <select asp-for="IdVenta" class="form-control" asp-items="ViewBag.IdVenta"></select>
                 <span asp-validation-for="IdVenta" class="text-danger"></span>
             </div>
+
             <div class="form-group">
-                <label asp-for="IdProducto" class="control-label"></label>
+                <label asp-for="IdProducto"></label>
                 <select asp-for="IdProducto" class="form-control" asp-items="ViewBag.IdProducto"></select>
                 <span asp-validation-for="IdProducto" class="text-danger"></span>
             </div>
+
             <div class="form-group">
-                <label asp-for="PrecioVenta" class="control-label"></label>
+                <label asp-for="PrecioVenta"></label>
                 <input asp-for="PrecioVenta" class="form-control" />
                 <span asp-validation-for="PrecioVenta" class="text-danger"></span>
             </div>
+
             <div class="form-group">
-                <label asp-for="Cantidad" class="control-label"></label>
+                <label asp-for="Cantidad"></label>
                 <input asp-for="Cantidad" class="form-control" />
                 <span asp-validation-for="Cantidad" class="text-danger"></span>
             </div>
+
             <div class="form-group">
-                <label asp-for="SubTotal" class="control-label"></label>
+                <label asp-for="SubTotal"></label>
                 <input asp-for="SubTotal" class="form-control" />
                 <span asp-validation-for="SubTotal" class="text-danger"></span>
             </div>
+
             <div class="form-group">
-                <label asp-for="FechaRegistro" class="control-label"></label>
+                <label asp-for="FechaRegistro"></label>
                 <input asp-for="FechaRegistro" class="form-control" />
                 <span asp-validation-for="FechaRegistro" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+
+            <div class="form-buttons">
+                <input type="submit" value="💾 Guardar" class="btn-primary" />
+                <a asp-action="Index" class="btn-secondary">← Volver a la lista</a>
             </div>
         </form>
     </div>
-</div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
-
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
+    @section Scripts {
+        @{
+            await Html.RenderPartialAsync("_ValidationScriptsPartial");
+        }
+    }
+</body>
+</html>

@@ -1,13 +1,17 @@
 ﻿@model IEnumerable<BellaNapoli.Models.DetalleVentum>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Detalles de Venta";
+    var idVenta = ViewBag.IdVenta ?? 0; // Asegúrate que el controlador pase este valor
 }
+
 <style>
     html, body {
         height: 100%;
         margin: 0;
         padding: 0;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #f9f9f9;
     }
 
     body {
@@ -19,66 +23,126 @@
 
     .container {
         flex: 1;
-        padding: 20px;
+        padding: 20px 40px;
+        max-width: 1400px;
+        margin: 40px auto 5rem;
+        background-color: white;
+        box-shadow: 0 0 15px rgba(0,0,0,0.1);
+        border-radius: 10px;
     }
+
+    h1 {
+        color: #28a745;
+        text-align: center;
+        margin-bottom: 30px;
+        font-size: 2.5rem;
+        font-weight: bold;
+    }
+
+    .btn-success {
+        background-color: #28a745;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 6px;
+        text-decoration: none;
+        font-size: 1rem;
+        display: inline-block;
+        margin-bottom: 20px;
+        transition: background-color 0.3s ease;
+    }
+
+        .btn-success:hover {
+            background-color: #218838;
+        }
+
+    table.table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+        table.table th, table.table td {
+            padding: 12px;
+            text-align: center;
+            border: 1px solid #ddd;
+            vertical-align: middle;
+        }
+
+        table.table th {
+            background-color: #28a745;
+            color: white;
+            font-weight: bold;
+        }
+
+        table.table td {
+            background-color: #f9f9f9;
+        }
+
+    a.action-link {
+        margin: 0 5px;
+        padding: 6px 12px;
+        border-radius: 5px;
+        font-size: 0.9rem;
+        text-decoration: none;
+        color: white;
+    }
+
+        a.action-link.edit {
+            background-color: #ffc107;
+            color: #212529;
+        }
+
+        a.action-link.details {
+            background-color: #007bff;
+        }
+
+        a.action-link.delete {
+            background-color: #dc3545;
+        }
 </style>
 
-<h1>Index</h1>
+<div class="container">
+    <h1>@ViewData["Title"]</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.PrecioVenta)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Cantidad)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.SubTotal)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.FechaRegistro)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IdProductoNavigation)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IdVentaNavigation)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.PrecioVenta)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Cantidad)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.SubTotal)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FechaRegistro)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IdProductoNavigation.IdProducto)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IdVentaNavigation.IdVenta)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.IdDetalleVenta">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.IdDetalleVenta">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.IdDetalleVenta">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+    <a asp-controller="DetalleVentums" asp-action="Create" asp-route-idVenta="@idVenta" class="btn-success">
+        ➕ Agregar producto
+    </a>
+
+    @if (!Model.Any())
+    {
+        <p style="text-align:center; font-style: italic;">No hay productos registrados para esta venta.</p>
+    }
+    else
+    {
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>@Html.DisplayNameFor(model => model.PrecioVenta)</th>
+                    <th>@Html.DisplayNameFor(model => model.Cantidad)</th>
+                    <th>@Html.DisplayNameFor(model => model.SubTotal)</th>
+                    <th>Fecha de registro</th>
+                    <th>Producto</th>
+                    <th>Venta</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.PrecioVenta</td>
+                        <td>@item.Cantidad</td>
+                        <td>@item.SubTotal</td>
+                        <td>@item.FechaRegistro</td>
+                        <td>@item.IdProductoNavigation?.Nombre</td>
+                        <td>@($"{item.IdVentaNavigation?.IdVenta} - {item.IdVentaNavigation?.NombreCliente}")</td>
+                        <td>
+                            <a asp-action="Edit" asp-route-id="@item.IdDetalleVenta" class="action-link edit">Editar</a> |
+                            <a asp-action="Details" asp-route-id="@item.IdDetalleVenta" class="action-link details">Detalles</a> |
+                            <a asp-action="Delete" asp-route-id="@item.IdDetalleVenta" class="action-link delete">Eliminar</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+</div>
