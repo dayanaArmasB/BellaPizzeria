@@ -3,13 +3,14 @@
 @{
     ViewData["Title"] = "Lista de Ventas";
 }
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>@ViewData["Title"]</title>
-    <link href="https://fonts.googleapis.com/css2?family=Segoe+UI&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Segoe+UI&display=swap" rel="stylesheet" />
     <style>
         html, body {
             height: 100%;
@@ -22,13 +23,12 @@
 
         .container-venta {
             flex: 1;
-            padding: 40px 20px;
-            max-width: auto;
-            margin: 40px auto;
+            padding: 20px 40px;
+            max-width: 1900px;
+            margin: 40px auto 5rem;
             background-color: white;
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 0 15px rgba(0,0,0,0.1);
             border-radius: 10px;
-            margin-bottom: 5rem;
         }
 
         h1 {
@@ -37,63 +37,6 @@
             color: #28a745;
             margin-bottom: 30px;
             text-align: center;
-        }
-
-        .btn-group {
-            display: flex;
-            gap: 5px;
-        }
-
-        .table-responsive {
-            margin-top: 30px;
-        }
-
-        .table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-            .table th, .table td {
-                padding: 12px;
-                text-align: center;
-                border: 1px solid #ddd;
-                vertical-align: middle;
-            }
-
-            .table th {
-                background-color: #28a745;
-                color: white;
-                font-weight: bold;
-            }
-
-            .table td {
-                background-color: #f9f9f9;
-            }
-
-        .acciones a {
-            margin: 0 5px;
-            padding: 6px 12px;
-            border-radius: 5px;
-            font-size: 0.9rem;
-            text-decoration: none;
-            color: white;
-        }
-
-        .btn-primary {
-            background-color: #007bff;
-        }
-
-        .btn-warning {
-            background-color: #ffc107;
-            color: #212529;
-        }
-
-        .btn-danger {
-            background-color: #dc3545;
-        }
-
-        .btn-success {
-            background-color: #28a745;
         }
 
         .crear-nuevo {
@@ -108,16 +51,88 @@
                 color: white;
                 border-radius: 6px;
                 text-decoration: none;
+                transition: background-color 0.3s ease;
             }
 
                 .crear-nuevo a:hover {
                     background-color: #218838;
                 }
+
+        .table-responsive {
+            margin-top: 30px;
+            overflow-x: auto;
+        }
+
+        table.table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+            table.table th, table.table td {
+                padding: 12px;
+                text-align: center;
+                border: 1px solid #ddd;
+                vertical-align: middle;
+            }
+
+            table.table th {
+                background-color: #28a745;
+                color: white;
+                font-weight: bold;
+            }
+
+            table.table td {
+                background-color: #f9f9f9;
+            }
+
+        .acciones {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px; /* Más espacio entre botones */
+        }
+
+            .acciones a {
+                min-width: 80px;
+                min-height: 36px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-weight: 500;
+                transition: background 0.2s;
+            }
+
+
+        .btn-primary {
+            background-color: #007bff;
+        }
+
+            .btn-primary:hover {
+                background-color: #0056b3;
+            }
+
+        .btn-warning {
+            background-color: #ffc107;
+            color: #212529;
+        }
+
+            .btn-warning:hover {
+                background-color: #d39e00;
+                color: #212529;
+            }
+
+        .btn-danger {
+            background-color: #dc3545;
+        }
+
+            .btn-danger:hover {
+                background-color: #a71d2a;
+            }
     </style>
 </head>
 <body>
     <div class="container-venta">
-        <h1>Lista de Ventas</h1>
+        <h1>@ViewData["Title"]</h1>
 
         <div class="crear-nuevo">
             <a asp-action="Create">➕ Registrar Venta</a>
@@ -128,7 +143,6 @@
                 <thead>
                     <tr>
                        
-                        <th>@Html.DisplayNameFor(model => model.NumeroDocumento)</th>
                         <th>@Html.DisplayNameFor(model => model.DocumentoCliente)</th>
                         <th>@Html.DisplayNameFor(model => model.NombreCliente)</th>
                         <th>@Html.DisplayNameFor(model => model.MontoPago)</th>
@@ -143,17 +157,16 @@
                     @foreach (var item in Model)
                     {
                         <tr>
-                        
-                            <td>@Html.DisplayFor(modelItem => item.NumeroDocumento)</td>
+                           
                             <td>@Html.DisplayFor(modelItem => item.DocumentoCliente)</td>
                             <td>@Html.DisplayFor(modelItem => item.NombreCliente)</td>
-                            <td>@Html.DisplayFor(modelItem => item.MontoPago)</td>
-                            <td>@Html.DisplayFor(modelItem => item.MontoCambio)</td>
-                            <td>@Html.DisplayFor(modelItem => item.MontoTotal)</td>
-                            <td>@Html.DisplayFor(modelItem => item.FechaRegistro)</td>
+                            <td>@item.MontoPago</td>
+                            <td>@item.MontoCambio</td>
+                            <td>@item.MontoTotal</td>
+                            <td>@item.FechaRegistro</td>
                             <td>@item.IdUsuarioNavigation?.NombreCompleto</td>
                             <td class="acciones">
-                                <a asp-action="Details" asp-route-id="@item.IdVenta" class="btn-primary">Detalles</a>
+                                <a asp-controller="DetalleVentums" asp-action="ByVenta" asp-route-id="@item.IdVenta" class="btn-primary">Artículos</a>
                                 <a asp-action="Edit" asp-route-id="@item.IdVenta" class="btn-warning">Editar</a>
                                 <a asp-action="Delete" asp-route-id="@item.IdVenta" class="btn-danger">Eliminar</a>
                             </td>
