@@ -1,2 +1,2 @@
 # BellaPizzeria
-proyecto del curso de alidad y Pruebas de software
+proyecto del curso de calidad y Pruebas de software
